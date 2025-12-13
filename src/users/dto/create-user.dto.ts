@@ -3,6 +3,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { UserRole } from '../enums/user-role.enum';
 
 export class CreateUserDto {
+    @ApiProperty({ description: 'User first name', example: 'John', required: false })
+    @IsOptional()
+    @IsString()
+    first_name?: string;
+
+    @ApiProperty({ description: 'User last name', example: 'Doe', required: false })
+    @IsOptional()
+    @IsString()
+    last_name?: string;
+
     @ApiProperty({ description: 'User email address', example: 'user@example.com' })
     @IsEmail()
     email: string;

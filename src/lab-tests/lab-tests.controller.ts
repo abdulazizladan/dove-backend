@@ -16,7 +16,7 @@ export class LabTestsController {
     constructor(private readonly testsService: LabTestsService) { }
 
     @Post()
-    @Roles(UserRole.ADMIN)
+    @Roles(UserRole.ADMIN, UserRole.STAFF)
     @ApiOperation({ summary: 'Create a new test', description: 'Add a new test to the catalog (Admin/Manager only)' })
     @ApiResponse({ status: 201, description: 'Test created successfully.' })
     create(@Body() createTestDto: CreateTestDto) {

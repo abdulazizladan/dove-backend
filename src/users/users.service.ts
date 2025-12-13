@@ -24,18 +24,23 @@ export class UsersService {
     }
 
     async findAll(): Promise<User[]> {
-        return this.usersRepository.find();
+        return this.usersRepository.find({
+            select: ['id', 'first_name', 'last_name', 'email', 'role', 'isActive', 'created_at', 'updated_at']
+        });
     }
 
     async findOne(id: string): Promise<User | null> {
-        return this.usersRepository.findOne({ where: { id } });
+        return this.usersRepository.findOne({
+            where: { id },
+            select: ['id', 'first_name', 'last_name', 'email', 'role', 'isActive', 'created_at', 'updated_at']
+        });
     }
 
     async findByEmail(email: string): Promise<User | null> {
         // Explicitly select password for auth checks
         return this.usersRepository.findOne({
             where: { email },
-            select: ['id', 'email', 'password', 'role', 'isActive']
+            select: ['id', 'first_name', 'last_name', 'email', 'password', 'role', 'isActive']
         });
     }
 

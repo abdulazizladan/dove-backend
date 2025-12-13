@@ -7,11 +7,11 @@ import { UserRole } from '../users/enums/user-role.enum';
 import { ApiBearerAuth, ApiTags, ApiBody, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 
 import { CreateDepartmentDto } from './dto/create-department.dto';
+import { UpdateDepartmentDto } from './dto/update-department.dto';
 
 @ApiTags('departments')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.ADMIN)
 @Controller('departments')
 export class DepartmentController {
     constructor(private readonly service: DepartmentService) { }
@@ -21,13 +21,15 @@ export class DepartmentController {
     @ApiBody({ type: CreateDepartmentDto })
     @ApiResponse({ status: 201, description: 'Department created successfully.' })
     @ApiResponse({ status: 403, description: 'Forbidden.' })
+    @Roles(UserRole.ADMIN)
     create(@Body() body: CreateDepartmentDto) {
-        return this.service.create(body.name);
+        return this.service.create(body);
     }
 
     @Get()
     @ApiOperation({ summary: 'List departments', description: 'Retrieve all departments' })
     @ApiResponse({ status: 200, description: 'List of departments returned.' })
+    @Roles(UserRole.ADMIN, UserRole.STAFF)
     findAll() {
         return this.service.findAll();
     }
@@ -37,6 +39,7 @@ export class DepartmentController {
     @ApiParam({ name: 'id', description: 'Department ID' })
     @ApiResponse({ status: 200, description: 'Department details returned.' })
     @ApiResponse({ status: 404, description: 'Department not found.' })
+    @Roles(UserRole.ADMIN)
     findOne(@Param('id') id: string) {
         return this.service.findOne(id);
     }
@@ -47,8 +50,9 @@ export class DepartmentController {
     @ApiBody({ type: CreateDepartmentDto })
     @ApiResponse({ status: 200, description: 'Department updated successfully.' })
     @ApiResponse({ status: 404, description: 'Department not found.' })
-    update(@Param('id') id: string, @Body() body: CreateDepartmentDto) {
-        return this.service.update(id, body.name);
+    @Roles(UserRole.ADMIN)
+    update(@Param('id') id: string, @Body() body: UpdateDepartmentDto) {
+        return this.service.update(id, body);
     }
 
     @Delete(':id')
@@ -56,6 +60,7 @@ export class DepartmentController {
     @ApiParam({ name: 'id', description: 'Department ID' })
     @ApiResponse({ status: 200, description: 'Department deleted successfully.' })
     @ApiResponse({ status: 404, description: 'Department not found.' })
+    @Roles(UserRole.ADMIN)
     remove(@Param('id') id: string) {
         return this.service.remove(id);
     }

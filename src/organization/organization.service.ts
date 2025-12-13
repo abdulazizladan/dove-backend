@@ -22,7 +22,7 @@ export class OrganizationService {
     }
 
     findOne(id: string) {
-        return this.organizationRepository.findOne({ where: { id } });
+        return this.organizationRepository.findOne({ where: { id }, relations: ['departments'] });
     }
 
     update(id: string, updateOrganizationDto: UpdateOrganizationDto) {

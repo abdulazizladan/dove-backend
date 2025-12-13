@@ -7,9 +7,11 @@ import { DesignationController } from './designation.controller';
 import { DepartmentService } from './department.service';
 import { DesignationService } from './designation.service';
 
+import { OrganizationModule } from '../organization/organization.module';
+
 @Module({
-  imports: [TypeOrmModule.forFeature([Department, Designation])],
+  imports: [TypeOrmModule.forFeature([Department, Designation]), OrganizationModule],
   controllers: [DepartmentController, DesignationController],
   providers: [DepartmentService, DesignationService],
 })
-export class StructureModule {}
+export class StructureModule { }

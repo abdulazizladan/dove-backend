@@ -6,4 +6,9 @@ export class CreateDepartmentDto {
     @IsString()
     @IsNotEmpty()
     name: string;
+
+    @ApiProperty({ description: 'Organization ID', example: 'uuid-string' })
+    @IsString()
+    @IsNotEmpty()
+    organizationId: string;
 }

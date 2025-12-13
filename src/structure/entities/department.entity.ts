@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { Organization } from '../../organization/entities/organization.entity';
 
 @Entity('departments')
 export class Department {
@@ -13,4 +14,10 @@ export class Department {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @ManyToOne(() => Organization, (organization) => organization.departments)
+    organization: Organization;
+
+    @Column({ nullable: true })
+    organizationId: string;
 }

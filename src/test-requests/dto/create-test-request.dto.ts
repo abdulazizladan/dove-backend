@@ -9,7 +9,7 @@ export class CreateTestRequestDto {
     patient_id: string;
 
     @ApiProperty({ description: 'ID of the test from catalog', example: 'uuid-string' })
-    @IsUUID()
+    @IsString()
     @IsNotEmpty()
     testId: string;
 

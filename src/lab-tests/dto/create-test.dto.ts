@@ -2,6 +2,11 @@ import { IsNotEmpty, IsString, IsNumber, IsPositive, IsUUID } from 'class-valida
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTestDto {
+    @ApiProperty({ description: 'ID of the test', example: 'CBC' })
+    @IsString()
+    @IsNotEmpty()
+    id: string;
+
     @ApiProperty({ description: 'Name of the test', example: 'Complete Blood Count' })
     @IsString()
     @IsNotEmpty()
