@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -16,18 +16,11 @@ import { LabTestsModule } from './lab-tests/lab-tests.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'sqlite',
-        database: 'dove.db',
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
-      }),
-      inject: [ConfigService],
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'dove.db',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
     }),
     AuthModule,
     UsersModule,

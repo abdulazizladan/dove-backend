@@ -18,5 +18,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "exclude": [
+    "reproduce_issue.ts",
+    "scripts",
+    "test",
+    "**/*.spec.ts",
+    "dist"
+  ]
 }
