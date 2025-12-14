@@ -1,6 +1,6 @@
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 import { CreateTestRequestDto } from './create-test-request.dto';
-import { IsEnum, IsOptional } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { TestRequestStatus } from '../enums/test-request-status.enum';
 
 export class UpdateTestRequestDto extends PartialType(CreateTestRequestDto) {
@@ -8,4 +8,9 @@ export class UpdateTestRequestDto extends PartialType(CreateTestRequestDto) {
     @IsEnum(TestRequestStatus)
     @IsOptional()
     status?: TestRequestStatus;
+
+    @ApiProperty({ description: 'Result of the test', required: false })
+    @IsString()
+    @IsOptional()
+    test_result?: string;
 }

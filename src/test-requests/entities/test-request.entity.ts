@@ -3,6 +3,7 @@ import { TestRequestStatus } from '../enums/test-request-status.enum';
 import { Test } from './test.entity';
 import { Payment } from './payment.entity';
 import { Patient } from '../../patients/entities/patient.entity';
+import { ReferringDoctor } from '../../referring-doctors/entities/referring-doctor.entity';
 
 @Entity('test_requests')
 export class TestRequest {
@@ -18,6 +19,16 @@ export class TestRequest {
 
     @ManyToOne(() => Test)
     test: Test;
+
+    @ManyToOne(() => ReferringDoctor, { nullable: true })
+    @JoinColumn({ name: 'referringDoctorId' })
+    referringDoctor: ReferringDoctor;
+
+    @Column({ nullable: true })
+    referringDoctorId: string;
+
+    @Column({ type: 'text', nullable: true })
+    test_result: string;
 
     @OneToMany(() => Payment, (payment) => payment.testRequest, { cascade: true })
     payments: Payment[];

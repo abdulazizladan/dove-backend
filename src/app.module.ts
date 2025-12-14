@@ -13,6 +13,7 @@ import { LoggingInterceptor } from './activity-log/logging.interceptor';
 import { PatientsModule } from './patients/patients.module';
 import { TestRequestsModule } from './test-requests/test-requests.module';
 import { LabTestsModule } from './lab-tests/lab-tests.module';
+import { ReferringDoctorsModule } from './referring-doctors/referring-doctors.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { LabTestsModule } from './lab-tests/lab-tests.module';
     PatientsModule,
     TestRequestsModule,
     LabTestsModule,
+    ReferringDoctorsModule,
   ],
   controllers: [AppController],
   providers: [

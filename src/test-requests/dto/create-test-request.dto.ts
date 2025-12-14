@@ -22,4 +22,9 @@ export class CreateTestRequestDto {
     @IsString()
     @IsOptional()
     discount_reason?: string;
+
+    @ApiProperty({ description: 'ID of the referring doctor', example: 'uuid-string', required: false })
+    @IsUUID()
+    @IsOptional()
+    referringDoctorId?: string;
 }
