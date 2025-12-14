@@ -26,6 +26,9 @@ export class User {
     })
     role: UserRole;
 
+    @Column({ default: 'active' })
+    status: string;
+
     @Column({ default: true })
     isActive: boolean;
 
