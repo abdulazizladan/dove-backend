@@ -44,11 +44,11 @@ export class TestRequestsService {
     }
 
     findAll() {
-        return this.repo.find({ relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital'] });
+        return this.repo.find({ relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital', 'patient'] });
     }
 
     findOne(id: string) {
-        return this.repo.findOne({ where: { id }, relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital'] });
+        return this.repo.findOne({ where: { id }, relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital', 'patient'] });
     }
 
     update(id: string, dto: UpdateTestRequestDto) {

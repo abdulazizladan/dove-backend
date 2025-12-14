@@ -4,7 +4,7 @@ import { TestRequestStatus } from '../enums/test-request-status.enum';
 
 export class CreateTestRequestDto {
     @ApiProperty({ description: 'ID of the patient', example: 'uuid-string' })
-    @IsUUID()
+    //@IsUUID()
     @IsNotEmpty()
     patient_id: string;
 
