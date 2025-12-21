@@ -1,4 +1,4 @@
-import { IsNumber, IsPositive, IsNotEmpty } from 'class-validator';
+import { IsNumber, IsPositive, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePaymentDto {
@@ -7,4 +7,9 @@ export class CreatePaymentDto {
     @IsPositive()
     @IsNotEmpty()
     amount: number;
+
+    @ApiProperty({ description: 'Payment mode (e.g. cash, transfer)', example: 'cash' })
+    @IsNotEmpty()
+    @IsString()
+    mode: string;
 }

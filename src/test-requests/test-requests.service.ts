@@ -30,12 +30,13 @@ export class TestRequestsService {
         return this.repo.save(testRequest);
     }
 
-    async addPayment(id: string, amount: number) {
+    async addPayment(id: string, amount: number, mode: string) {
         const testRequest = await this.repo.findOne({ where: { id }, relations: ['payments'] });
         if (!testRequest) throw new NotFoundException('Test request not found');
 
         const payment = new Payment();
         payment.amount = amount;
+        payment.mode = mode;
         payment.testRequest = testRequest;
         await this.entityManager.save(Payment, payment);
 

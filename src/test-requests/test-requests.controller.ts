@@ -31,7 +31,7 @@ export class TestRequestsController {
     @ApiResponse({ status: 200, description: 'Payment added successfully.' })
     @ApiResponse({ status: 404, description: 'Test request not found.' })
     addPayment(@Param('id') id: string, @Body() createPaymentDto: CreatePaymentDto) {
-        return this.service.addPayment(id, createPaymentDto.amount);
+        return this.service.addPayment(id, createPaymentDto.amount, createPaymentDto.mode);
     }
 
     @Get()

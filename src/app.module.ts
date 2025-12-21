@@ -14,6 +14,7 @@ import { PatientsModule } from './patients/patients.module';
 import { TestRequestsModule } from './test-requests/test-requests.module';
 import { LabTestsModule } from './lab-tests/lab-tests.module';
 import { ReferringDoctorsModule } from './referring-doctors/referring-doctors.module';
+import { PaymentModule } from './payments/payment.module';
 
 @Module({
   imports: [
@@ -29,10 +30,11 @@ import { ReferringDoctorsModule } from './referring-doctors/referring-doctors.mo
     StructureModule,
     ActivityLogModule,
     PatientsModule,
-    PatientsModule,
+
     TestRequestsModule,
     LabTestsModule,
     ReferringDoctorsModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [
