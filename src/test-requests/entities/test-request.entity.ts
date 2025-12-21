@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn, OneToOne } from 'typeorm';
 import { TestRequestStatus } from '../enums/test-request-status.enum';
 import { Test } from './test.entity';
 import { Payment } from './payment.entity';
 import { Patient } from '../../patients/entities/patient.entity';
 import { ReferringDoctor } from '../../referring-doctors/entities/referring-doctor.entity';
+import { Result } from './result.entity';
 
 @Entity('test_requests')
 export class TestRequest {
@@ -54,4 +55,7 @@ export class TestRequest {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @OneToOne(() => Result, (result) => result.testRequest)
+    result: Result;
 }

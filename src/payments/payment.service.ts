@@ -40,6 +40,13 @@ export class PaymentService {
         return Array.from(paymentsByDate, ([date, total]) => ({ date, total })).reverse();
     }
 
+    async findOne(id: string) {
+        return this.paymentRepository.findOne({
+            where: { id },
+            relations: ['testRequest', 'testRequest.patient', 'testRequest.test'],
+        });
+    }
+
     async getAllPayments() {
         return this.paymentRepository.find({
             relations: ['testRequest', 'testRequest.patient', 'testRequest.test'],
