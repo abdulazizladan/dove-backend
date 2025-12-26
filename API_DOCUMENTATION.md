@@ -55,7 +55,7 @@ Base API URL: `http://localhost:3000`
 | `DELETE` | `/designations/:id` | Delete designation | - |
 
 ## Patients (`/patients`)
-> **Role Required**: STAFF
+> **Role Required**: STAFF, RECEPTIONIST
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -66,7 +66,7 @@ Base API URL: `http://localhost:3000`
 | `DELETE` | `/patients/:id` | Delete patient record |
 
 ## Test Requests (`/test-requests`)
-> **Role Required**: STAFF
+> **Role Required**: STAFF, RECEPTIONIST
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |

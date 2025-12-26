@@ -11,7 +11,7 @@ import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse, ApiParam } from '@ne
 @ApiTags('patients')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.STAFF)
+@Roles(UserRole.STAFF, UserRole.RECEPTIONIST)
 @Controller('patients')
 export class PatientsController {
     constructor(private readonly patientsService: PatientsService) { }

@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { TestRequestsService } from './test-requests.service';
 import { CreateTestRequestDto } from './dto/create-test-request.dto';
 import { UpdateTestRequestDto } from './dto/update-test-request.dto';
+import { UploadResultDto } from './dto/upload-result.dto';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -12,7 +13,7 @@ import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse, ApiParam } from '@ne
 @ApiTags('test-requests')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.STAFF)
+@Roles(UserRole.STAFF, UserRole.RECEPTIONIST)
 @Controller('test-requests')
 export class TestRequestsController {
     constructor(private readonly service: TestRequestsService) { }
@@ -32,6 +33,15 @@ export class TestRequestsController {
     @ApiResponse({ status: 404, description: 'Test request not found.' })
     addPayment(@Param('id') id: string, @Body() createPaymentDto: CreatePaymentDto) {
         return this.service.addPayment(id, createPaymentDto.amount, createPaymentDto.mode);
+    }
+
+    @Post(':id/result')
+    @ApiOperation({ summary: 'Upload test result', description: 'Upload test result for a specific test request' })
+    @ApiParam({ name: 'id', description: 'Test Request ID' })
+    @ApiResponse({ status: 200, description: 'Result uploaded successfully.' })
+    @ApiResponse({ status: 404, description: 'Test request not found.' })
+    uploadResult(@Param('id') id: string, @Body() uploadResultDto: UploadResultDto, @Request() req) {
+        return this.service.uploadResult(id, uploadResultDto.summary, uploadResultDto.attachment || '', req.user.userId);
     }
 
     @Get()

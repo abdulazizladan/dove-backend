@@ -6,6 +6,7 @@ import { CreateTestRequestDto } from './dto/create-test-request.dto';
 import { UpdateTestRequestDto } from './dto/update-test-request.dto';
 import { Test } from './entities/test.entity';
 import { Payment } from './entities/payment.entity';
+import { Result } from './entities/result.entity';
 
 @Injectable()
 export class TestRequestsService {
@@ -45,11 +46,33 @@ export class TestRequestsService {
     }
 
     findAll() {
-        return this.repo.find({ relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital', 'patient'] });
+        return this.repo.find({ relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital', 'patient', 'result', 'result.uploadedBy'] });
     }
 
     findOne(id: string) {
-        return this.repo.findOne({ where: { id }, relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital', 'patient'] });
+        return this.repo.findOne({ where: { id }, relations: ['test', 'payments', 'referringDoctor', 'referringDoctor.hospital', 'patient', 'result', 'result.uploadedBy'] });
+    }
+
+    async uploadResult(testRequestId: string, summary: string, attachment: string, uploadedById: string) {
+        const testRequest = await this.repo.findOne({ where: { id: testRequestId }, relations: ['result'] });
+        if (!testRequest) throw new NotFoundException('Test request not found');
+
+        // Check if result already exists
+        if (testRequest.result) {
+            // Update existing result
+            testRequest.result.summary = summary;
+            testRequest.result.attachment = attachment;
+            testRequest.result.uploadedById = uploadedById;
+            return this.entityManager.save(Result, testRequest.result);
+        }
+
+        // Create new result
+        const result = new Result();
+        result.summary = summary;
+        result.attachment = attachment;
+        result.testRequest = testRequest;
+        result.uploadedById = uploadedById;
+        return this.entityManager.save(Result, result);
     }
 
     update(id: string, dto: UpdateTestRequestDto) {
